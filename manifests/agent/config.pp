@@ -7,16 +7,16 @@
 # Eric Anderson <eric.sysmin@gmail.com>
 #
 class zabbix::agent::config ($path = undef) {
-  if ! $path {
+  if $path {
+    $config_path = $path
+  } else {
     case $::operatingsystem {
-      centos, redhat  : { $path = '/etc/zabbix_agentd.conf' }
-      debian, ubuntu  : { $path = '/etc/zabbix/zabbix_agentd.conf'}
+      centos, redhat  : { $config_path = '/etc/zabbix_agentd.conf' }
+      debian, ubuntu  : { $config_path = '/etc/zabbix/zabbix_agentd.conf'}
       default         : { fail('Unrecognized operating system') }
     }
-  } else {
-    $_path = $path
   }
-  file { $_path:
+  file { $config_path:
     replace => true,
     content => template('zabbix/agent/zabbix_agentd.conf.erb'),
   }
