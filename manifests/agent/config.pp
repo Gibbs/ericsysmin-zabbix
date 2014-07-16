@@ -13,8 +13,10 @@ class zabbix::agent::config ($path = undef) {
       debian, ubuntu  : { $path = '/etc/zabbix/zabbix_agentd.conf'}
       default         : { fail('Unrecognized operating system') }
     }
+  } else {
+    $_path = $path
   }
-  file { $path:
+  file { $_path:
     replace => true,
     content => template('zabbix/agent/zabbix_agentd.conf.erb'),
   }
