@@ -24,7 +24,7 @@ class zabbix::repo ($apt_pin = '510', $version = '2.2') {
     redhat  : { include zabbix::repo::redhat }
     debian  : { include zabbix::repo::debian }
     ubuntu  : { include zabbix::repo::ubuntu }
-    default : { fail('Unrecognized operating system for webserver') }
+    default : { fail('Unrecognized operating system') }
   }
 
 }
